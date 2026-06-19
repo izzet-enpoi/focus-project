@@ -1,0 +1,290 @@
+/* Focus Project — design tokens
+   Color:  --bg #15171c, --surface #1e212a, --surface-quiet #1a1c23,
+           --border #2a2e38, --text #edeef0, --text-muted #8b92a3,
+           --accent #e8a33d (the "focus" color)
+   Type:   system sans (body) + system mono (tab count / meta)
+   Motif:  the active project's card lights up with an amber "focus ring",
+           the others stay deliberately dim (out of focus)               */
+
+:root {
+  --bg: #15171c;
+  --surface: #1e212a;
+  --surface-quiet: #1a1c23;
+  --border: #2a2e38;
+  --text: #edeef0;
+  --text-muted: #8b92a3;
+  --accent: #e8a33d;
+  --accent-soft: rgba(232, 163, 61, 0.16);
+  --danger: #c1554f;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* ---------- header ---------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header__icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.header__title {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+}
+
+.header__status {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* ---------- list ---------- */
+
+.list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px 10px;
+}
+
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.empty {
+  margin: 10px 4px 4px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  font-size: 12px;
+}
+
+.project-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 9px 10px 9px 0;
+  border-radius: 9px;
+  background: var(--surface-quiet);
+  border: 1px solid transparent;
+  cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-card:hover {
+  opacity: 0.95;
+  background: var(--surface);
+}
+
+.project-card--active {
+  opacity: 1;
+  background: var(--surface);
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 0 1px var(--accent-soft), 0 0 14px var(--accent-soft);
+}
+
+.project-card__bar {
+  width: 4px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.project-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.project-card__name {
+  font-weight: 560;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-card__name[contenteditable="true"] {
+  outline: none;
+  border-bottom: 1px dashed var(--accent);
+  white-space: normal;
+}
+
+.project-card__meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.project-card--active .project-card__meta {
+  color: var(--accent);
+}
+
+.project-card__delete {
+  align-self: center;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease;
+}
+
+.project-card:hover .project-card__delete {
+  opacity: 1;
+}
+
+.project-card__delete:hover {
+  color: var(--danger);
+  background: rgba(193, 85, 79, 0.12);
+}
+
+/* ---------- create panel ---------- */
+
+.create-panel {
+  border-top: 1px solid var(--border);
+  padding: 10px 12px 12px;
+  background: var(--bg);
+}
+
+.color-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.color-swatches {
+  display: flex;
+  gap: 6px;
+}
+
+.color-swatch {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.color-swatch--selected {
+  border-color: var(--text);
+  transform: scale(1.08);
+}
+
+.clear-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.clear-btn:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.create-row {
+  display: flex;
+  gap: 6px;
+}
+
+.create-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text);
+  padding: 7px 9px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+}
+
+.create-input::placeholder {
+  color: var(--text-muted);
+}
+
+.create-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.create-btn {
+  background: var(--accent);
+  color: #1a1306;
+  border: none;
+  border-radius: 7px;
+  padding: 0 14px;
+  font-weight: 650;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  filter: brightness(1.07);
+}
+
+.create-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* accessibility: visible keyboard focus ring */
+button:focus-visible,
+input:focus-visible,
+[contenteditable]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

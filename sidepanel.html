@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Focus Project</title>
+<link rel="stylesheet" href="sidepanel.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <img class="header__icon" src="icons/icon32.png" alt="" />
+      <div class="header__text">
+        <h1 class="header__title">Focus Project</h1>
+        <p class="header__status" id="status">Loading…</p>
+      </div>
+    </header>
+
+    <main class="list" id="list-wrap">
+      <ul class="project-list" id="project-list"></ul>
+      <p class="empty" id="empty-state" hidden>
+        No projects yet. Type a name below and save — the tabs you have open right now will belong to it.
+      </p>
+    </main>
+
+    <footer class="create-panel">
+      <div class="color-row" id="color-row">
+        <div class="color-swatches" id="color-swatches"></div>
+        <button id="clear-btn" class="clear-btn" type="button" title="Close all tabs in this window and detach it from its current project, so you can start a brand new one">
+          Clear tabs
+        </button>
+      </div>
+      <div class="create-row">
+        <input
+          id="project-name"
+          class="create-input"
+          type="text"
+          placeholder="Project name, e.g. Tax Return"
+          maxlength="40"
+          autocomplete="off"
+        />
+        <button id="create-btn" class="create-btn" title="Save the open tabs as a new project">
+          Save
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>
